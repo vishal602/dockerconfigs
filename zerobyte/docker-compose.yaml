@@ -13,7 +13,7 @@ services:
     environment:
       - TZ=Australia/Melbourne # Set your timezone here
       - BASE_URL=http://localhost:4096 # URL you will use to access Zerobyte
-      - APP_SECRET=${} # Generate your own secret with `openssl rand -hex 32`
+      - APP_SECRET=${APP_SECRET} # Generate your own secret with `openssl rand -hex 32`
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /var/lib/zerobyte:/var/lib/zerobyte
