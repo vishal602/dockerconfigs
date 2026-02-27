@@ -1,0 +1,9 @@
+services:
+  hawser:
+    image: ghcr.io/finsys/hawser:latest
+    container_name: hawser
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - DOCKHAND_SERVER_URL=${DOCKHAND_SERVER_URL}
+      - TOKEN=${TOKEN}
