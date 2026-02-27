@@ -12,7 +12,7 @@ services:
       - /dev/fuse:/dev/fuse
     environment:
       - TZ=Australia/Melbourne # Set your timezone here
-      - BASE_URL=http://localhost:4096 # URL you will use to access Zerobyte
+      - BASE_URL=http://127.0.0.1:4096 # URL you will use to access Zerobyte
       - APP_SECRET=${APP_SECRET} # Generate your own secret with `openssl rand -hex 32`
     volumes:
       - /etc/localtime:/etc/localtime:ro
