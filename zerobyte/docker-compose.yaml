@@ -16,5 +16,6 @@ services:
       - APP_SECRET=${APP_SECRET} # Generate your own secret with `openssl rand -hex 32`
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - /var/lib/zerobyte:/var/lib/zerobyte
+      # - /var/lib/zerobyte:/var/lib/zerobyte
+      - /opt/production/zerobyte:/var/lib/zerobyte
       - /opt/production:/local
