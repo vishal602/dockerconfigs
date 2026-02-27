@@ -7,3 +7,5 @@ services:
     environment:
       - DOCKHAND_SERVER_URL=${DOCKHAND_SERVER_URL}
       - TOKEN=${TOKEN}
+      - TZ=Australia/Melbourne # Set your timezone here
+    restart: unless-stopped
