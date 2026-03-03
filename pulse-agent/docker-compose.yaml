@@ -1,0 +1,15 @@
+services:
+  pulse-docker-agent:
+    image: ghcr.io/rcourtman/pulse-docker-agent:latest
+    container_name: pulse-docker-agent
+    pid: host
+    uts: host
+    restart: unless-stopped
+    environment:
+      - PULSE_URL=${PULSE_URL}
+      - PULSE_TOKEN=${PULSE_TOKEN} # http://localhost:7655
+      - PULSE_TARGETS=${PULSE_TARGETS} # 
+      - PULSE_NO_AUTO_UPDATE=true
+    volumes:
+      - /etc/machine-id:/etc/machine-id:ro
+      - /var/run/docker.sock:/var/run/docker.sock
