@@ -1,0 +1,22 @@
+services:
+  tailscale:
+    privileged: true
+    hostname: ts-subnet-router-lan
+    container_name: ts-subnet-router-lan
+    image: tailscale/tailscale:latest
+    volumes:
+      - './tailscale-state:/var/lib/tailscale'
+      - '/dev/net/tun:/dev/net/tun'
+    network_mode: "host"  # Ensure this is uncommented and quoted
+    cap_add:
+      - net_admin
+      - sys_module
+    environment:
+      - TS_SOCKET=/var/run/tailscale/tailscaled.sock
+      - TS_USERSPACE=false  # Change to false for better subnet routing
+      - TS_AUTHKEY=${TS_AUTHKEY}
+      - TS_AUTH_ONCE=true
+      - TS_STATE_DIR=/var/lib/tailscale
+      - TS_EXTRA_ARGS=--advertise-routes=192.168.147.0/24,192.168.1.0/24,10.0.0.0/24
+    command: tailscaled --tun=tailscale0
+    restart: unless-stopped

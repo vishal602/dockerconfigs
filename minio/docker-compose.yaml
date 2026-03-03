@@ -1,0 +1,43 @@
+################################################################################################################################
+# Reference URL for mounting CIFS/SMB Share: https://linuxize.com/post/how-to-mount-cifs-windows-share-on-linux/
+# Mounted /mnt/NAS on the machine which maps to //192.168.147.135/Network-Data/Backup/longhorn
+# Created a credentials file on credentials=/etc/nascreds
+# Add the following line to /etc/fstab
+# //192.168.147.135/Network-Data/Backup/longhorn /mnt/NAS cifs credentials=/etc/nascreds,file_mode=0777,dir_mode=0777 0 0
+# sudo mount /mnt/NAS
+# To unmonut : sudo umount /mnt/NAS
+##########------Minio Prerequistes------##########
+# sudo nano /etc/default/minio
+# Paste the following Lines
+# MINIO_ROOT_USER=myminioadmin
+# MINIO_ROOT_PASSWORD=minio-secret-key-change-me
+# MINIO_VOLUMES="/mnt/NAS"
+# SVC1_HOST_DIR1=/mnt/NAS
+# SVC1_HOST_DIR2=/mnt/NAS/config
+# SVC1_HOST_PORT1=9500
+# SVC1_HOST_PORT2=9001
+# MINIO_DEFAULT_BUCKETS=pradax
+# MINIO_OPTS="--console-address :9001"
+################################################################################################################################
+services:
+  minio:
+    image: quay.io/minio/minio:latest
+    hostname: minio
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - /$SVC1_HOST_DIR1:/data
+    ports:
+      - "$SVC1_HOST_PORT1:9000"
+      - "$SVC1_HOST_PORT2:9001"
+    environment:
+      - MINIO_ROOT_USER=$MINIO_ROOT_USER
+      - MINIO_ROOT_PASSWORD=$MINIO_ROOT_PASSWORD
+      - MINIO_DEFAULT_BUCKETS=$MINIO_DEFAULT_BUCKETS
+      - MC_CONFIG_DIR=$SVC1_HOST_DIR2
+    command: server /data --console-address ":9001"
+    restart: always
+#    delay: 2m
