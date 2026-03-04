@@ -13,3 +13,10 @@ services:
     volumes:
       - /etc/machine-id:/etc/machine-id:ro
       - /var/run/docker.sock:/var/run/docker.sock
+    healthcheck:
+      # Check if the agent process is running. Assumes the binary is named 'pulse-docker-agent'.
+      test: ["CMD", "pgrep", "pulse-docker-agent"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
