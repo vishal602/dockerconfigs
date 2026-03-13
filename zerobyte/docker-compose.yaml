@@ -1,6 +1,6 @@
 services:
   zerobyte:
-    image: ghcr.io/nicotsx/zerobyte:v0.28.2
+    image: ghcr.io/nicotsx/zerobyte:v0.31.0
     container_name: zerobyte
     restart: unless-stopped
     privileged: true
@@ -20,8 +20,10 @@ services:
       - /opt/production/zerobyte:/var/lib/zerobyte
       - /opt/production:/local
     healthcheck:
-      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:4096/health || exit 1"]
+      test:
+        - CMD-SHELL
+        - 'wget -q --tries=1 --spider http://localhost:4096/ || exit 1'
       interval: 30s
       timeout: 10s
       retries: 3
-      start_period: 40s
+      start_period: 60s
