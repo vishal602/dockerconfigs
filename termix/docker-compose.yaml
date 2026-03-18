@@ -8,26 +8,15 @@ services:
     environment:
       - TZ=Australia/Melbourne
       - PORT=8080
-      # Add any other Termix-specific environment variables here
-      # - DATABASE_URL=sqlite:/app/data/termix.db
-      # - JWT_SECRET=${JWT_SECRET}
-      # - ENABLE_2FA=${ENABLE_2FA:-true}
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - /opt/production/termix/data:/app/data
-    depends_on:
-      guacd:
-        condition: service_healthy
+      - termix-data:/app/data
     healthcheck:
-      test:
-        - CMD-SHELL
-        - 'wget --no-verbose --tries=1 --spider http://localhost:8080/ 2>&1 || true; [ $$? -eq 0 -o $$? -eq 4 ] || exit 1'
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8080"]
       interval: 30s
       timeout: 10s
       retries: 3
-      start_period: 60s
-    networks:
-      - termix-net
+      start_period: 30s
 
   guacd:
     image: guacamole/guacd:latest
@@ -43,9 +32,7 @@ services:
       timeout: 10s
       retries: 3
       start_period: 30s
-    networks:
-      - termix-net
 
-networks:
-  termix-net:
-    driver: bridge
+volumes:
+  termix-data:
+    driver: local
