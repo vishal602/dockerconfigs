@@ -16,23 +16,23 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
-      start_period: 30s
+      start_period: 60s
 
-  guacd:
-    image: guacamole/guacd:latest
-    container_name: guacd
-    restart: unless-stopped
-    ports:
-      - "4822:4822"
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-    healthcheck:
-      test: ["CMD", "netstat", "-tln", "|", "grep", "4822"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 30s
+#   guacd:
+#     image: guacamole/guacd:latest
+#     container_name: guacd
+#     restart: unless-stopped
+#     ports:
+#       - "4822:4822"
+#     volumes:
+#       - /etc/localtime:/etc/localtime:ro
+#     healthcheck:
+#       test: ["CMD", "netstat", "-tln", "|", "grep", "4822"]
+#       interval: 30s
+#       timeout: 10s
+#       retries: 3
+#       start_period: 30s
 
-volumes:
-  termix-data:
-    driver: local
+# volumes:
+#   termix-data:
+#     driver: local
