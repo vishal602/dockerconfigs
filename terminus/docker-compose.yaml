@@ -1,0 +1,26 @@
+services:
+  terminus:
+    image: terminusdb/terminusdb-server:latest
+    container_name: terminus
+    restart: unless-stopped
+    ports:
+      - "6363:6363"
+    environment:
+      - TZ=Australia/Melbourne
+      - TERMINUSDB_ADMIN_PASS=${TERMINUSDB_ADMIN_PASS}
+      - TERMINUSDB_SERVER_NAME=${TERMINUSDB_SERVER_NAME:-localhost}
+      - TERMINUSDB_LOG_LEVEL=${TERMINUSDB_LOG_LEVEL:-info}
+      # - OPENAI_KEY=${OPENAI_KEY:-}
+      - BUFFER_AMOUNT=${BUFFER_AMOUNT:-120000}
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /opt/production/terminus/data:/app/data
+      - /opt/production/terminus/config:/app/config
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - 'wget --no-verbose --tries=1 --spider http://localhost:6363/ 2>&1 || true; [ $$? -eq 0 -o $$? -eq 4 ] || exit 1'
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
