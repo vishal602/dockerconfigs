@@ -4,6 +4,13 @@ services:
     container_name: adguard
     restart: always
     
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health-check"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s    
+    
     command:
       - "--no-check-update"
       - "-c"
