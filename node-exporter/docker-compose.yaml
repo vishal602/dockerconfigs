@@ -1,0 +1,40 @@
+services:
+  node-exporter:
+    image: quay.io/prometheus/node-exporter:latest
+    container_name: node-exporter
+    restart: unless-stopped
+    privileged: true
+    user: root
+
+    healthcheck:
+      test: ["CMD-SHELL", "echo ok"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 40s  
+    
+    command:
+      - "--path.rootfs=/host"
+      - "--collector.hwmon"
+      - "--collector.cpu"
+      - "--collector.meminfo"
+      - "--collector.diskstats"
+      - "--collector.netdev"
+      - "--collector.filesystem"
+      - "--collector.textfile.directory=/host/var/lib/node_exporter/textfile_collector"
+    
+    volumes:
+      - "/:/host:ro"
+    
+    ports:
+      - "9100:9100/tcp"
+    
+    networks:
+      - nodeexporter_default
+    
+    security_opt:
+      - "label=disable"
+networks:
+  nodeexporter_default:
+    external: true
+    name: "nodeexporter_default"
