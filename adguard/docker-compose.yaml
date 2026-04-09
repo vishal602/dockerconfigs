@@ -1,0 +1,43 @@
+services:
+  adguard:
+    image: adguard/adguardhome:latest
+    container_name: adguard
+    restart: always
+    
+    command:
+      - "--no-check-update"
+      - "-c"
+      - "/opt/adguardhome/conf/AdGuardHome.yaml"
+      - "-w"
+      - "/opt/adguardhome/work"
+    
+    volumes:
+      # These are now corrected - conf goes to conf, work goes to work
+      - "/opt/production/adguard/conf:/opt/adguardhome/conf"
+      - "/opt/production/adguard/work:/opt/adguardhome/work"
+      # Remove this line if you don't actually need Docker socket access
+      # - "/var/run/docker.sock:/var/run/docker.sock"
+    
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "80:80/tcp"
+      - "443:443/tcp"
+      - "3000:3000/tcp"
+      - "784:784/udp"
+      - "853:853/tcp"
+    
+    networks:
+      vlan1:
+        ipv4_address: 192.168.147.99
+      adguard_internal:
+    
+    # Optional: Add this if you want to ensure proper hostname
+    hostname: adguard
+networks:
+  adguard_internal:
+    external: true
+    name: "adguard_internal"
+  vlan1:
+    external: true
+    name: "vlan1"
