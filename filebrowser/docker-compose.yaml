@@ -12,6 +12,7 @@ services:
       - PGID=1000
     volumes:
       - /opt:/srv # This is the location which Filebrowser would see when it starts up
-      - /opt/production/filebrowser/filebrowser.db:/database/filebrowser.db
+      - /opt/production/filebrowser:/database/filebrowser.db
+      - /opt/production/filebrowser:/config 
     security_opt:
       - no-new-privileges:true
