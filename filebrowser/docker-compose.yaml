@@ -14,6 +14,6 @@ services:
     volumes:
       - /opt:/srv # This is the location which Filebrowser would see when it starts up
       - /opt/production/filebrowser.db:/database/filebrowser.db
-      - /opt/production/settings.json:/config/settings.json
+      - /opt/production/settings.json:/.filebrowser.json
     # security_opt:
     #   - no-new-privileges:true
