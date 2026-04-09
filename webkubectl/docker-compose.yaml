@@ -26,10 +26,3 @@ services:
     ports:
       - "${WEBKUBECTL_PORT:-9090}:8080"
     
-    networks:
-      - webkubectl_default
-
-networks:
-  webkubectl_default:
-    external: true
-    name: "webkubectl_default"
