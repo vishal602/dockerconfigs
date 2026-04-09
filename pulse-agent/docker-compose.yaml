@@ -9,7 +9,7 @@ services:
       - PULSE_URL=${PULSE_URL}
       - PULSE_TOKEN=${PULSE_TOKEN} # http://localhost:7655
       - PULSE_TARGETS=${PULSE_TARGETS} # Only token
-      - PULSE_NO_AUTO_UPDATE=true # http://localhost:7655|token
+      - PULSE_NO_AUTO_UPDATE=true
     volumes:
       - /etc/machine-id:/etc/machine-id:ro
       - /var/run/docker.sock:/var/run/docker.sock
