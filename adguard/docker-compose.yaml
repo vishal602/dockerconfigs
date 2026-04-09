@@ -2,6 +2,7 @@ services:
   adguard:
     image: adguard/adguardhome:latest
     container_name: adguard
+    # hostname: adguard
     restart: always
     
     healthcheck:
@@ -40,7 +41,6 @@ services:
       adguard_internal:
     
     # Optional: Add this if you want to ensure proper hostname
-    hostname: adguard
 networks:
   adguard_internal:
     external: true
