@@ -1,0 +1,28 @@
+
+services:
+  webkubectl:
+    image: kubeoperator/webkubectl:latest
+    container_name: webkubectl
+    restart: always
+    privileged: true
+    
+    command:
+      - sh
+      - /opt/webkubectl/start-webkubectl.sh
+    
+    environment:
+      - SESSION_STORAGE_SIZE=${SESSION_STORAGE_SIZE:-10M}
+      - WELCOME_BANNER=${WELCOME_BANNER:-Welcome to Web Kubectl, try kubectl --help.}
+      - KUBECTL_INSECURE_SKIP_TLS_VERIFY=${KUBECTL_INSECURE_SKIP_TLS_VERIFY:-true}
+      - GOTTY_OPTIONS=${GOTTY_OPTIONS:---port 8080 --permit-write --permit-arguments}
+    
+    ports:
+      - "${WEBKUBECTL_PORT:-9090}:8080"
+    
+    networks:
+      - webkubectl_default
+
+networks:
+  webkubectl_default:
+    external: true
+    name: "webkubectl_default"
