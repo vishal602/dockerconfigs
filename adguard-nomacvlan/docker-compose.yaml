@@ -1,0 +1,32 @@
+services:
+  adguard:
+    image: 'adguard/adguardhome:latest'
+    container_name: adguard
+    restart: always
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - 'echo ok'
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 40s
+    command:
+      - '--no-check-update'
+      - '--bind-host=${BIND_HOST:-0.0.0.0}'
+      - '-c'
+      - /opt/adguardhome/conf/AdGuardHome.yaml
+      - '-w'
+      - /opt/adguardhome/work
+    volumes:
+      - '/opt/production/adguard/conf:/opt/adguardhome/conf'
+      - '/opt/production/adguard/work:/opt/adguardhome/work'
+    ports:
+      - '${DNS_TCP_PORT:-53}:53/tcp'
+      - '${DNS_UDP_PORT:-53}:53/udp'
+      - '${HTTP_PORT:-8880}:80/tcp'
+      - '${HTTPS_PORT:-8443}:443/tcp'
+      - '${ADMIN_PORT:-3000}:3000/tcp'
+      - '${DNS_OVER_QUIC_PORT:-784}:784/udp'
+      - '${DNS_OVER_TLS_PORT:-853}:853/tcp'
+
