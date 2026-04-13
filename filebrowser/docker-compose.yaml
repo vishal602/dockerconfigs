@@ -4,7 +4,7 @@ services:
     container_name: filebrowser
     hostname:  filebrowser
     restart: unless-stopped
-    # user: "1000:1000"
+    user: "1000:1000"
     ports:
       - 8081:80
     environment:
@@ -13,7 +13,7 @@ services:
       # - PGID=1000
     volumes:
       - /opt:/srv # This is the location which Filebrowser would see when it starts up
-      - /opt/production/filebrowser/filebrowser.db:/database/filebrowser.db
-      - /opt/production/filebrowser/settings.json:/config/settings.json
+      - /opt/production/filebrowser/database:/database
+      - /opt/production/filebrowser/config:/config
     # security_opt:
     #   - no-new-privileges:true
