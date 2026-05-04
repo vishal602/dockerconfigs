@@ -1,5 +1,5 @@
 services:
-  pulse-docker-agent:
+  pulse:
     image: ghcr.io/rcourtman/pulse:latest
     container_name: pulse-server
     pid: host
