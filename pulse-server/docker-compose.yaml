@@ -1,0 +1,28 @@
+services:
+  pulse-docker-agent:
+    image: ghcr.io/rcourtman/pulse:latest
+    container_name: pulse-server
+    pid: host
+    uts: host
+    restart: unless-stopped
+    ports:
+      - "7655:7655"
+    environment:
+      - PULSE_URL=${PULSE_URL}
+      - PULSE_TOKEN=${PULSE_TOKEN} # http://localhost:7655
+      - PULSE_TARGETS=${PULSE_TARGETS} # Only token
+      - PULSE_NO_AUTO_UPDATE=true
+      - PULSE_AUTH_USER=${PULSE_AUTH_USER}
+      - PULSE_AUTH_PASS=${PULSE_AUTH_PASS}
+    volumes:
+      - /etc/machine-id:/etc/machine-id:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+      - pulse_data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "echo ok"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+volumes:
+  pulse_data:
