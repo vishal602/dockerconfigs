@@ -26,3 +26,5 @@ services:
       start_period: 15s
 volumes:
   pulse_data:
+    name: pulse_pulse_data  # Forces this exact name
+    external: true  
