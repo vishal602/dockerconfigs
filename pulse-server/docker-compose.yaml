@@ -8,9 +8,9 @@ services:
     ports:
       - "7655:7655"
     environment:
-      - PULSE_URL=${PULSE_URL}
-      - PULSE_TOKEN=${PULSE_TOKEN} # http://localhost:7655
-      - PULSE_TARGETS=${PULSE_TARGETS} # Only token
+      # - PULSE_URL=${PULSE_URL}
+      # - PULSE_TOKEN=${PULSE_TOKEN} # http://localhost:7655
+      # - PULSE_TARGETS=${PULSE_TARGETS} # Only token
       - PULSE_NO_AUTO_UPDATE=true
       - PULSE_AUTH_USER=${PULSE_AUTH_USER}
       - PULSE_AUTH_PASS=${PULSE_AUTH_PASS}
