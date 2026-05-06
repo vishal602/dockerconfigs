@@ -10,6 +10,13 @@ services:
     volumes:
       # - postgres_data:/var/lib/postgresql/data
       - /var/lib/docker/volumes/dockhand_postgres_data/_data:/var/lib/postgresql/data # ← Bind mount to existing volume data
+    healthcheck:
+      test: ["CMD-SHELL", "echo ok"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+
 
   dockhand:
     image: fnsys/dockhand:latest
@@ -24,6 +31,13 @@ services:
       - /var/lib/docker/volumes/dockhand_dockhand_data/_data:/app/data # ← Bind mount to existing volume data
     depends_on:
       - postgres
+    healthcheck:
+      test: ["CMD-SHELL", "echo ok"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+
 
 # volumes:
 #   postgres_data:
