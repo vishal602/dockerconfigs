@@ -1,6 +1,7 @@
 services:
   node-exporter:
     image: quay.io/prometheus/node-exporter:latest
+    pull_policy: always
     container_name: node-exporter
     restart: unless-stopped
     privileged: true

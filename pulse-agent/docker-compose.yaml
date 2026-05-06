@@ -2,6 +2,7 @@ services:
   pulse-docker-agent:
     image: ghcr.io/rcourtman/pulse-docker-agent:latest
     container_name: pulse-docker-agent
+    pull_policy: always
     pid: host
     uts: host
     restart: unless-stopped

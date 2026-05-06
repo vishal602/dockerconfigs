@@ -1,6 +1,7 @@
 services:
   file-browser:
     image: filebrowser/filebrowser:latest
+    pull_policy: always 
     container_name: filebrowser
     hostname:  filebrowser
     restart: unless-stopped

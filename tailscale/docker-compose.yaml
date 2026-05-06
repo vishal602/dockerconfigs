@@ -4,6 +4,7 @@ services:
     hostname: ts-subnet-router-lan
     container_name: ts-subnet-router-lan
     image: tailscale/tailscale:latest
+    pull_policy: always
     volumes:
       - './tailscale-state:/var/lib/tailscale'
       - '/dev/net/tun:/dev/net/tun'

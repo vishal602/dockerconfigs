@@ -1,6 +1,7 @@
 services:
   adguard:
     image: adguard/adguardhome:latest
+    pull_policy: always
     container_name: adguard
     # hostname: adguard
     restart: always

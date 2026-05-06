@@ -1,6 +1,7 @@
 services:
   pulse:
     image: ghcr.io/rcourtman/pulse:latest
+    pull_policy: always
     container_name: pulse-server
     pid: host
     uts: host

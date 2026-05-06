@@ -2,6 +2,7 @@
 services:
   webkubectl:
     image: kubeoperator/webkubectl:latest
+    pull_policy: always
     container_name: webkubectl
     restart: always
     privileged: true
