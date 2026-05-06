@@ -24,7 +24,7 @@ services:
     ports:
       - 4000:3000
     environment:
-      DATABASE_URL: postgres://dockhand:changeme@postgres:5432/dockhand
+      DATABASE_URL: postgres://dockhand:${POSTGRES_PASSWORD}@postgres:5432/dockhand
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       # - dockhand_data:/app/data
