@@ -9,7 +9,7 @@ services:
       POSTGRES_DB: dockhand
     volumes:
       # - postgres_data:/var/lib/postgresql/data
-      - /var/lib/docker/volumes/pulse_pulse_data:/var/lib/postgresql/data # ← Bind mount to existing volume data
+      - /var/lib/docker/volumes/dockhand_postgres_data:/var/lib/postgresql/data # ← Bind mount to existing volume data
 
   dockhand:
     image: fnsys/dockhand:latest
