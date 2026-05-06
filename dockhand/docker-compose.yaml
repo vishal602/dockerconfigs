@@ -9,7 +9,7 @@ services:
       POSTGRES_DB: dockhand
     volumes:
       # - postgres_data:/var/lib/postgresql/data
-      - /var/lib/docker/volumes/dockhand_postgres_data:/var/lib/postgresql/data # ← Bind mount to existing volume data
+      - dockhand_postgres_data:/var/lib/postgresql/data # ← Bind mount to existing volume data
 
   dockhand:
     image: fnsys/dockhand:latest
@@ -21,10 +21,17 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       # - dockhand_data:/app/data
-      - /var/lib/docker/volumes/dockhand_dockhand_data:/app/data # ← Bind mount to existing volume data
+      - dockhand_dockhand_data:/app/data # ← Bind mount to existing volume data
     depends_on:
       - postgres
+volumes:
+  dockhand_postgres_data:
+    external: true
+    name: dockhand_postgres_data
 
+  dockhand_dockhand_data:
+    external: true
+    name: dockhand_dockhand_data
 # volumes:
 #   postgres_data:
 #   dockhand_data:
