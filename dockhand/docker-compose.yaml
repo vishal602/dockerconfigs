@@ -1,0 +1,30 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    pull_policy: always
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: dockhand
+      POSTGRES_PASSWORD: changeme
+      POSTGRES_DB: dockhand
+    volumes:
+      # - postgres_data:/var/lib/postgresql/data
+      - /var/lib/docker/volumes/pulse_pulse_data:/var/lib/postgresql/data # ← Bind mount to existing volume data
+
+  dockhand:
+    image: fnsys/dockhand:latest
+    pull_policy: always
+    ports:
+      - 4000:3000
+    environment:
+      DATABASE_URL: postgres://dockhand:changeme@postgres:5432/dockhand
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      # - dockhand_data:/app/data
+      - /var/lib/docker/volumes/dockhand_dockhand_data:/var/lib/postgresql/data # ← Bind mount to existing volume data
+    depends_on:
+      - postgres
+
+# volumes:
+#   postgres_data:
+#   dockhand_data:
