@@ -1,6 +1,6 @@
 services:
   glance-docker-container-ext:
-    image: dvdandroid/glance-docker-container-ext:1
+    image: dvdandroid/glance-docker-container-ext:1.1.1
     container_name: glance-docker-container-ext
     restart: always
     environment:
