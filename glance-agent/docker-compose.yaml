@@ -1,10 +1,9 @@
 services:
   glance-docker-container-ext:
-    image: dvdandroid/glance-docker-container-ext:1.1.1
+    image: dvdandroid/glance-docker-container-ext:latest
     container_name: glance-docker-container-ext
     restart: always
     environment:
-      - DOCKER_HOST=unix:///var/run/docker.sock
       - PORT=6666  # Optional, default is 8081
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
