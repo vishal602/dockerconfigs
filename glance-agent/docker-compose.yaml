@@ -2,7 +2,7 @@ services:
   glance-docker-container-ext:
     image: dvdandroid/glance-docker-container-ext:latest
     container_name: glance-docker-container-ext
-    restart: unless-stopped
+    restart: always
     environment:
       - DOCKER_HOST=unix:///var/run/docker.sock
       - PORT=6666  # Optional, default is 8081
@@ -13,4 +13,4 @@ services:
       interval: 30s
       timeout: 5s
       retries: 3
-      start_period: 40s  
+      start_period: 40s
