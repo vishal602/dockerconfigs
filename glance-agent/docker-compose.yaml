@@ -1,8 +1,7 @@
 services:
   glance-docker-container-ext:
-    image: dvdandroid/glance-docker-container-ext:latest
+    image: dvdandroid/glance-docker-container-ext:1
     container_name: glance-docker-container-ext
-    platform: linux/amd64
     restart: always
     environment:
       - DOCKER_HOST=unix:///var/run/docker.sock
