@@ -5,6 +5,12 @@ services:
     pid: host
     uts: host
     restart: always
+    labels:
+      glance.enable: true
+      glance.name: Glance Agent
+      glance.description: "Glance Agent"
+      glance.url: "http://192.168.147.219"
+      glance.icon: "./assets/imgs/docker.svg"
     environment:
       - DOCKER_HOST=unix:///var/run/docker.sock
       - PORT=8081  # Optional, default is 8081
