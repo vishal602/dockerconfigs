@@ -22,7 +22,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     ports:
-      - "127.0.0.1:2375:2375" # Binds to localhost on the host machine
+      - "2375:2375" # Binds to localhost on the host machine
     restart: unless-stopped
     read_only: true
     tmpfs:
