@@ -1,0 +1,35 @@
+services:
+  docker-socket-proxy:
+    # This image is multi-arch and will automatically select the right version for your CPU (x86 or ARM)
+    image: lscr.io/linuxserver/socket-proxy:latest
+    container_name: docker-socket-proxy
+    environment:
+      # --- Essential Permissions (Adjust as Needed) ---
+      - PING=1               # Allows clients to test the connection
+      - VERSION=1            # Allows clients to check the Docker version
+      - CONTAINERS=1         # Allows viewing and managing containers
+      - CONTAINER_LIST=1     # Allows listing containers
+      - CONTAINER_INSPECT=1  # Allows inspecting containers (useful for many services)
+      - EVENTS=1             # Allows receiving real-time Docker events
+      # --- Optional Permissions (Set to 1 to enable) ---
+      - POST=0               # Disable for read-only access to the Docker API (recommended for security)
+      - ALLOW_START=0        # Set to 1 to allow containers to be started
+      - ALLOW_STOP=0         # Set to 1 to allow containers to be stopped
+      - ALLOW_RESTARTS=0     # Set to 1 to allow containers to be restarted
+      - IMAGES=0             # Set to 1 to allow pulling and listing images
+      - NETWORKS=0           # Set to 1 to allow managing networks
+      - VOLUMES=0            # Set to 1 to allow managing volumes
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    ports:
+      - "127.0.0.1:2375:2375" # Binds to localhost on the host machine
+    restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /run
+    healthcheck:
+      test: ["CMD-SHELL", "echo ok"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
