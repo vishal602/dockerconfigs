@@ -19,6 +19,9 @@ services:
       - IMAGES=0             # Set to 1 to allow pulling and listing images
       - NETWORKS=0           # Set to 1 to allow managing networks
       - VOLUMES=0            # Set to 1 to allow managing volumes
+      # --- Add these to reduce log noise ---
+      - LOG_LEVEL=err        # Only show errors, not warnings
+      - LOG_FORMAT=short     # Less verbose log format
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     ports:
