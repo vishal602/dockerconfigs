@@ -17,7 +17,7 @@ services:
       - COLLECTOR_RETENTION_PERIOD_DAYS=10
       
       # --- Optional Settings ---
-      - TZ=${TZ:-UTC}
+      - TZ=${TZ:-Australia/Melbourne}
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /proc:/proc:ro
