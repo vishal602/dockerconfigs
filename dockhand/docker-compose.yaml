@@ -30,6 +30,8 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - dockhand_data:/app/data
       # - /var/lib/docker/volumes/dockhand_dockhand_data/_data:/app/data # ← Bind mount to existing volume data
+    group_add:
+      - "991"  # This adds the docker group to the containe
     depends_on:
       - postgres
     healthcheck:
@@ -40,6 +42,6 @@ services:
       start_period: 15s
 
 
-# volumes:
-#   postgres_data:
-#   dockhand_data:
+volumes:
+  postgres_data:
+  dockhand_data:
