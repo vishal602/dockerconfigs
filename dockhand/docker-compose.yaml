@@ -25,6 +25,7 @@ services:
       - 4000:3000
     environment:
       DATABASE_URL: postgres://dockhand:${POSTGRES_PASSWORD}@postgres:5432/dockhand
+      FEAT_BACKUPS_ENABLED: true
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       # - dockhand_data:/app/data
