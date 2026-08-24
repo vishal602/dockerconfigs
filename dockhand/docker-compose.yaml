@@ -8,8 +8,8 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: dockhand
     volumes:
-      # - postgres_data:/var/lib/postgresql/data
-      - /var/lib/docker/volumes/dockhand_postgres_data/_data:/var/lib/postgresql/data # ← Bind mount to existing volume data
+      - postgres_data:/var/lib/postgresql/data
+      # - /var/lib/docker/volumes/dockhand_postgres_data/_data:/var/lib/postgresql/data # ← Bind mount to existing volume data
     healthcheck:
       test: ["CMD-SHELL", "echo ok"]
       interval: 30s
@@ -28,8 +28,8 @@ services:
       FEAT_BACKUPS_ENABLED: true
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      # - dockhand_data:/app/data
-      - /var/lib/docker/volumes/dockhand_dockhand_data/_data:/app/data # ← Bind mount to existing volume data
+      - dockhand_data:/app/data
+      # - /var/lib/docker/volumes/dockhand_dockhand_data/_data:/app/data # ← Bind mount to existing volume data
     depends_on:
       - postgres
     healthcheck:
